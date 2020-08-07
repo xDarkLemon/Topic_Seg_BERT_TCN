@@ -36,4 +36,4 @@ model_daT.pt: 训练后保存的模型参数
 
 **Result**
 
-<img src="C:\Users\Lei\Documents\GitHub\Topic_Seg_BERT_TCN\screenshot_res_dact.png" alt="0.75" style="zoom:75%;" />
+![](C:\Users\Lei\Documents\GitHub\Topic_Seg_BERT_TCN\screenshot_res_dact.png)
