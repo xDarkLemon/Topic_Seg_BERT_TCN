@@ -37,3 +37,9 @@ model_daT.pt: 训练后保存的模型参数
 **Result**
 
 <img width="450" height="450" src="./imgs/screenshot_res_dact.png" align=center />
+
+
+
+results for weibo
+
+<img width="450" height="450" src="./imgs/screenshot_res_weibo.png" align=center />
