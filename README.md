@@ -31,7 +31,9 @@ model_daT.pt: 训练后保存的模型参数
 
 **Usage**:
 1. 使用BERT(bert as service)将原txt中的文本部分进行编码，编码后的文件存到TCN/poly/mdata下，修改utils.py中对应部分进行数据加载
-
 2. 运行主程序 $python daT_run.py
-
 3. 训练记录及测试结果保存在daT_record.log中
+
+**Result**
+
+<img src="C:\Users\Lei\Documents\GitHub\Topic_Seg_BERT_TCN\screenshot_res_dact.png" alt="0.75" style="zoom:75%;" />
