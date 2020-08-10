@@ -1,45 +1,56 @@
 # Topic_Seg_BERT_TCN
 This repository contains the code and data for our paper *Topic Segmentation for Dialogue Stream*.
 
+### 1. Requirements
 
+1) Embedding part: Han Xiao's bert-as-service
 
-daT_train.txt: DA训练集,一行为一个样例，标签和数据以+++$+++分隔,1表示对应的utterance为topic边界,0表示无变换。
+2) Topic switch detection part: Shaojie Bai's Temporal Convolutional Network
 
-daT_test.txt: DA测试集,格式同上。
+### 2. Datasets
 
-daT_val.txt: DA验证集，格式同上。
+1) Weibo
 
-TCN/poly/mdata/daT_train_data.pkl: DA训练集经BERT编码后的文件
+Weibo dataset is composed of short news collected from the Internet, it provides two types of text stream: weibo-long and weibo-short.
 
-TCN/poly/mdata/daT_test_data.pkl: DA测试集经BERT编码后的文件
+weibo-long: each Weibo news is divided into complete sentences, i.e.
 
-TCN/poly/mdata/daT_dev_data.pkl: DA验证集经BERT编码后的文件
+<img src="./imgs/weibo-long_example.png" align=center />
 
-TCN/poly/mdata/daT_train_labels.pkl: DA训练集的标签文件
+weibo-short: each Weibo news is divided into short setences by commas, i.e.
 
-TCN/poly/mdata/daT_test_data.pkl: DA测试集的标签文件
+<img src="./imgs/weibo-short_example.png" align=center />
 
-TCN/poly/mdata/daT_dev_data.pkl: DA验证集的标签文件
+2) DAct
 
-daT_run.py: 主程序
+DAct is composed of dialogue utterances with two speakers.
 
-daT_record.log: 运行记录
+*Data Format*: one instance per line, the labels and utterances are separated by the ++$+++ symbol. Label 1 / 0 means a / no topic switch point in corresponding utterances respectively. Symbol '@' is used as the place holder to keep a fixed-size window, which empirically may improve the performance of the model.
 
-daT_record.log.bak: 日志记录备份
-
-model_daT.pt: 训练后保存的模型参数
-
-**Usage**:
-1. 使用BERT(bert as service)将原txt中的文本部分进行编码，编码后的文件存到TCN/poly/mdata下，修改utils.py中对应部分进行数据加载
-2. 运行主程序 $python daT_run.py
-3. 训练记录及测试结果保存在daT_record.log中
-
-**Result**
-
-<img width="450" height="450" src="./imgs/screenshot_res_dact.png" align=center />
+<img src="./imgs/dact_example.png" align=center />
 
 
 
-results for weibo
+### 3. Usage
 
-<img width="450" height="450" src="./imgs/screenshot_res_weibo.png" align=center />
+1) Start the bert-as-service server:
+
+```bert-serving-start -model_dir /tmp/chinese_L-12_H-768_A-12/ -num_worker=16```
+
+2) Run the main.py script:
+
+```$python main.py --taskname weibo-long```
+
+3) The training and testing results are logged in the file {taskname}_record.log.
+
+
+
+**Some experiments' results**
+
+<img width="600" height="450" src="./imgs/weibo-long_result.png" align=center />
+
+<center>Exp screenshot for Weibo-long dataset</center>
+
+<img width="600" height="400" src="./imgs/weibo-short_result.png" align=center />
+
+<center>Exp screenshot for Weibo-short dataset</center>
