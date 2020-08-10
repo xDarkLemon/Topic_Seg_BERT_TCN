@@ -25,7 +25,7 @@ weibo-short: each Weibo news is divided into short setences by commas, i.e.
 
 DAct is composed of dialogue utterances with two speakers.
 
-*Data Format*: one instance per line, the labels and utterances are separated by the ++$+++ symbol. Label 1 / 0 means a / no topic switch point in corresponding utterances respectively. Symbol '@' is used as the place holder to keep a fixed-size window, which empirically may improve the performance of the model.
+Data Format: one instance per line, the labels and utterances are separated by the ++$+++ symbol. Label 1 / 0 means a / no topic switch point in corresponding utterances respectively. Symbol '@' is used as the place holder to keep a fixed-size window, which empirically may improve the performance of the model.
 
 <img src="./imgs/dact_example.png" align=center />
 
@@ -47,15 +47,21 @@ DAct is composed of dialogue utterances with two speakers.
 
 **Some experiments' results**
 
-<img width="600" height="450" src="./imgs/weibo-long_result.png" align=center />
+<img width="400" height="300" src="./imgs/weibo-long_result.png" align=center />
 
 <center>Exp screenshot for Weibo-long dataset</center>
 
-<img width="600" height="400" src="./imgs/weibo-short_result.png" align=center />
+
+
+<img width="400" height="300" src="./imgs/weibo-short_result.png" align=center />
 
 <center>Exp screenshot for Weibo-short dataset</center>
 
-<img width="600" height="450" src="./imgs/dact_result.png" align=center />
+
+
+<img width="400" height="300" src="./imgs/dact_result.png" align=center />
 
 <center> Exp screenshot for DAct dataset</center>
+
+
 
