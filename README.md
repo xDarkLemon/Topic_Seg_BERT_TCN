@@ -54,3 +54,7 @@ DAct is composed of dialogue utterances with two speakers.
 <img width="600" height="400" src="./imgs/weibo-short_result.png" align=center />
 
 <center>Exp screenshot for Weibo-short dataset</center>
+
+<img width="600" height="450" src="./imgs/dact_result.png" align=center />
+
+<center> Exp screenshot for DAct dataset</center>
