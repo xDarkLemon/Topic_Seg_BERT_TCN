@@ -63,20 +63,3 @@ Data Format: one instance per line, the labels and sentences are separated by th
 
 <center> Exp screenshot for DAct dataset</center>
 
-
-
-
-
-
-
- If you find this repository helpful, please cite our work:
-
-```
-@inproceedings{zll2019,
-  title={Topic Segmentation for Dialogue Stream},
-  author={Leilan Zhang, Qiang Zhou},
-  year={2019},
-  publisher = {{APSIPA} Press},
-  address={Lanzhou, Gansu, China}
-}
-```
