@@ -1,7 +1,7 @@
 # Topic_Seg_BERT_TCN
 This repository contains the code and data for our paper *Topic Segmentation for Dialogue Stream*.
 
-### 1. Requirements
+### 1. Dependencies
 
 1) Embedding part: Han Xiao's bert-as-service
 
@@ -58,3 +58,4 @@ DAct is composed of dialogue utterances with two speakers.
 <img width="600" height="450" src="./imgs/dact_result.png" align=center />
 
 <center> Exp screenshot for DAct dataset</center>
+
