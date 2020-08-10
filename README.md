@@ -47,7 +47,7 @@ Data Format: one instance per line, the labels and sentences are separated by th
 
 **Some experiments' results**
 
-<img width="400" height="300" src="./imgs/weibo-long_result.png" align=center />
+<img width="400" height="300" src="./imgs/weibo-long_result.png" align="center" />
 
 Exp screenshot for Weibo-long dataset </div>
 
@@ -55,13 +55,13 @@ Exp screenshot for Weibo-long dataset </div>
 
 -----
 
-<img width="400" height="300" src="./imgs/weibo-short_result.png" align=center />
+<img width="400" height="300" src="./imgs/weibo-short_result.png" align="center" />
 
 <center>Exp screenshot for Weibo-short dataset</center><br>
 
 --------
 
-<img width="400" height="300" src="./imgs/dact_result.png" align=center />
+<img width="400" height="300" src="./imgs/dact_result.png" align="center" />
 
 <center> Exp screenshot for DAct dataset</center><br>
 
