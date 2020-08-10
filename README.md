@@ -3,9 +3,9 @@ This repository contains the code and data for our paper *Topic Segmentation for
 
 ### 1. Dependencies
 
-1) Embedding part: Han Xiao's bert-as-service
+1) Embedding part: Han Xiao's [bert-as-service](https://github.com/hanxiao/bert-as-service)
 
-2) Topic switch detection part: Shaojie Bai's Temporal Convolutional Network
+2) Topic switch detection part: Shaojie Bai's [Temporal Convolutional Network](https://github.com/locuslab/TCN)
 
 ### 2. Datasets
 
@@ -65,3 +65,14 @@ Data Format: one instance per line, the labels and utterances are separated by t
 
 
 
+ If you find this repository helpful, please cite our work:
+
+```
+@inproceedings{zll2019,
+  title={Topic Segmentation for Dialogue Stream},
+  author={Leilan Zhang, Qiang Zhou},
+  year={2019},
+  publisher = {{APSIPA} Press},
+  address={Lanzhou, Gansu, China}
+}
+```
