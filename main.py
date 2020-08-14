@@ -42,6 +42,9 @@ parser.add_argument('--seed', type=int, default=1111,
                     help='random seed (default: 1111)')
 parser.add_argument('--taskname', type=str, default='weibo-short',
                     help='name for the task i.e. weibo-short or weibo-long (default: weibo-short)')
+parser.add_argument('--window_sz', type=int, default='100',
+                    help='The size of the sliding window')
+
 
 
 args = parser.parse_args()
@@ -62,7 +65,7 @@ output_size = 2
 n_channels = [args.nhid] * args.levels
 kernel_size = args.ksize
 dropout = args.dropout
-
+size_window = args.window_sz
 
 model_name = "model_{0}.pt".format(taskname)
 #model = TCN(input_size, input_size, n_channels, kernel_size, dropout=args.dropout)
@@ -103,11 +106,11 @@ class myDataset(torch.utils.data.Dataset):
                 lbth = len(bth_text)
                 tmpbth = []
                 for text in bth_text:
-                    assert len(text)==100
+                    assert len(text)==size_window
                     tmpbth += text
                 emb = bc.encode(tmpbth)
                 for i in range(lbth):
-                    self.embeds.append(emb[i*100:(i+1)*100])
+                    self.embeds.append(emb[i*size_window:(i+1)*size_window])
                 #self.embeds += list(emb)
 
     def __getitem__(self,index):
@@ -145,8 +148,9 @@ def evaluate(isDev=True,epoch_idx=1):
     model.eval()
     total_loss = 0.0
     count = 0
+    bth_sz = 32
     mydataset = val_dataset if isDev else test_dataset
-    dataloader = DataLoader(mydataset,batch_size=3,shuffle=True)
+    dataloader = DataLoader(mydataset,batch_size=bth_sz,shuffle=True)
     FL = FocalLoss(class_num=2,alpha=torch.tensor([[0.25],[0.75]]),gamma=2)
     real_label_lst = []
     pred_label_lst = []
@@ -156,9 +160,13 @@ def evaluate(isDev=True,epoch_idx=1):
         output = model(data_batch)
         output = output.float()
 
-        loss = 0
-        for out,lb in zip(output,label_batch):
-            loss += FL(out,lb)
+        #loss = 0
+        #for out,lb in zip(output,label_batch):
+        #    loss += FL(out,lb)
+        output1 = output.view(-1,2)
+        label_batch1 = label_batch.view(1,-1).squeeze()
+        
+        loss = FL(output1,label_batch1) * bth_sz
         
         real_label_batch = label_batch.cpu()
         pred_label_batch = torch.argmax(output,dim=2).cpu()
@@ -201,7 +209,8 @@ def train(ep):
     model.train()
     total_loss = 0
     count = 0
-    dataloader = DataLoader(train_dataset,batch_size=32,shuffle=True)
+    bth_sz = 32
+    dataloader = DataLoader(train_dataset,batch_size=bth_sz,shuffle=True)
     FL = FocalLoss(class_num=2,alpha=torch.tensor([[0.25],[0.75]]),gamma=2)
     for iter_step,(text_batch,data_batch,label_batch) in enumerate(dataloader):
         #print('data.shape:',data_batch.shape)
@@ -222,10 +231,14 @@ def train(ep):
         #print('output.shape:',output.shape)
 
         output = output.float()
-        loss = 0
-        for out,lb in zip(output,label):
-            loss += FL(out,lb)
+        #loss = 0
+        #for out,lb in zip(output,label):
+        #    loss += FL(out,lb)
         #loss = FL(output,label)
+        output1 = output.view(-1,2)
+        label_batch1 = label.view(1,-1).squeeze()
+        
+        loss = FL(output1,label_batch1) * bth_sz
         #print('loss:',loss)
 
         total_loss += loss.item()
@@ -250,8 +263,8 @@ if __name__ == "__main__":
     vloss_list = []
     for ep in range(1, args.epochs+1):
         train(ep)
-        vloss = evaluate(isDev=False,epoch_idx=ep)
-        tloss = evaluate(isDev=True,epoch_idx=ep)
+        vloss = evaluate(isDev=True,epoch_idx=ep)
+        tloss = evaluate(isDev=False,epoch_idx=ep)
         if vloss < best_vloss:
             with open(model_name, "wb") as f:
                 torch.save(model, f)
@@ -266,7 +279,7 @@ if __name__ == "__main__":
 
     print('-' * 89)
     model = torch.load(open(model_name, "rb"))
-    tloss = evaluate(test_data,test_labels,isDev=False,epoch_idx=args.epochs)
+    tloss = evaluate(isDev=False,epoch_idx=args.epochs)
     test_score_df = pd.DataFrame(test_score_lst)
     print('test_score_df:')
     print(test_score_df)
