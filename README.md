@@ -39,7 +39,7 @@ Data Format: one instance per line, the labels and sentences are separated by th
 
 2) Run the main.py script:
 
-```$python main.py --taskname weibo-long```
+```$python main.py --taskname weibo-long --window_sz 100```
 
 3) The training and testing results are logged in the file {taskname}_record.log.
 
